@@ -1,0 +1,10 @@
+package com.openphilosophy.api.models.post;
+
+import com.openphilosophy.api.models.game.Game;
+import com.openphilosophy.api.models.movie.Movie;
+import com.openphilosophy.api.models.user.User;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+
+public record PostRegisterDTO(@NotBlank String content, @NotEmpty User author, String title, String[] tags, Game[] game, Movie[] movie) {
+}
