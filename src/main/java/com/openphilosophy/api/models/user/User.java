@@ -1,5 +1,6 @@
 package com.openphilosophy.api.models.user;
 
+import com.openphilosophy.api.models.post.Post;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +11,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -36,7 +40,7 @@ public class User {
     @NotNull
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    private UserRole[] role;
+    private Set<UserRole> role;
     private String bio;
 
     @CreationTimestamp
@@ -44,12 +48,4 @@ public class User {
 
     @UpdateTimestamp
     private LocalDate updatedAt;
-
-    public User(String name, String email, String password, UserRole[] role, String bio) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.bio = bio;
-    }
 }

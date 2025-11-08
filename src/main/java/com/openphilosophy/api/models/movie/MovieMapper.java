@@ -19,4 +19,16 @@ public class MovieMapper {
 
         return movie;
     }
+
+    public Movie map(Movie movie, MovieUpdateDTO data) {
+
+        if (data.title() != null) movie.setTitle(data.title());
+        if (data.producer() != null) movie.setProducer(data.producer());
+        if (data.release() != null) movie.setRelease(data.release());
+        if (data.category() != null) movie.setCategory(data.category());
+        if (data.castActors() != null) movie.setCastActors(data.castActors());
+        if (data.synopsis() != null) movie.setSynopsis(data.synopsis());
+
+        return movie;
+    }
 }

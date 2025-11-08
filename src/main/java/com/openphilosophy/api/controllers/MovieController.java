@@ -2,6 +2,7 @@ package com.openphilosophy.api.controllers;
 
 import com.openphilosophy.api.models.movie.Movie;
 import com.openphilosophy.api.models.movie.MovieRegisterDTO;
+import com.openphilosophy.api.models.movie.MovieUpdateDTO;
 import com.openphilosophy.api.services.MovieService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,24 @@ public class MovieController {
 
     @PostMapping("/")
     public ResponseEntity<Movie> create(@RequestBody @Valid MovieRegisterDTO data) {
-        return ResponseEntity.ok(movieService.register(data));
+        return ResponseEntity.ok(movieService.create(data));
+    }
+
+    // TODO: implement getById method
+    @GetMapping("/{id}")
+    public ResponseEntity<Movie> getById(@PathVariable String id) {
+        return ResponseEntity.ok(movieService.getById(id));
     }
 
     @GetMapping("/")
     public ResponseEntity<List<Movie>> getAll() {
         return ResponseEntity.ok(movieService.findAll());
     }
+
+    // TODO: implement update method
+    @PutMapping("/{id}")
+    public ResponseEntity<Movie> update(@PathVariable String id, @RequestBody @Valid MovieUpdateDTO data) {
+        return ResponseEntity.ok(movieService.updateById(id, data));
+    }
+    // TODO: implement delete method
 }

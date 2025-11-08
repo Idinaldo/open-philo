@@ -1,6 +1,5 @@
 package com.openphilosophy.api.models.user;
 
-import com.openphilosophy.api.services.UserService;
 import org.springframework.stereotype.Component;
 
 @Component

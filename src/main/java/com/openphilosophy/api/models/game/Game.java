@@ -1,5 +1,6 @@
 package com.openphilosophy.api.models.game;
 
+import java.util.Set;
 import java.util.UUID;
 import java.time.LocalDate;
 
@@ -26,6 +27,7 @@ public class Game {
     private UUID id;
 
     @NotBlank
+    @Column(unique = true, nullable = false)
     private String title;
     @ElementCollection
     private String[] category;

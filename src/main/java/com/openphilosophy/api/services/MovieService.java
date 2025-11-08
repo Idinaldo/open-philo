@@ -3,17 +3,17 @@ package com.openphilosophy.api.services;
 import com.openphilosophy.api.models.movie.Movie;
 import com.openphilosophy.api.models.movie.MovieMapper;
 import com.openphilosophy.api.models.movie.MovieRegisterDTO;
+import com.openphilosophy.api.models.movie.MovieUpdateDTO;
 import com.openphilosophy.api.repositories.MovieRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
 
+// TODO: refactor methods to include try-catch logic
 @Service
 public class MovieService {
 
@@ -26,7 +26,6 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    // TODO: implement read all
     public List<Movie> findAll() {
         return movieRepository.findAll();
     }
@@ -42,7 +41,7 @@ public class MovieService {
         return movieRepository.findById(uuidMovie).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie Not Found"));
     }
 
-    public Movie register(MovieRegisterDTO data) {
+    public Movie create(MovieRegisterDTO data) {
         Movie movie;
         try {
             movie = movieMapper.map(data);
@@ -52,8 +51,19 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    // TODO: implement update (put)
+    public Movie updateById(String id, MovieUpdateDTO data) {
+        UUID uuidMovie;
+        try {
+            uuidMovie = UUID.fromString(id);
+        } catch (Exception e) {
+            logger.error("There was an error while trying to parse String (id) to UUID (uuid)");
+            logger.error("INFO: ", e.getCause());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There was an unexpected error while trying to update this movie's info. Please review your request and try again.");
+        }
+        Movie oldMovie = movieRepository.findById(uuidMovie).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found."));
+        Movie movie = movieMapper.map(oldMovie, data);
+        return movieRepository.save(movie);
+    }
 
     // TODO: implement delete
-
 }

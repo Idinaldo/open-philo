@@ -16,4 +16,14 @@ public class GameMapper {
 
         return game;
     }
+
+    public Game map(Game game, GameUpdateDTO data) {
+        if (data.title() != null) game.setTitle(data.title());
+        if (data.category() != null) game.setCategory(data.category());
+        if (data.synopsis() != null) game.setSynopsis(data.synopsis());
+        if (data.release() != null) game.setRelease(data.release());
+        if (data.developer() != null) game.setDeveloper(data.developer());
+
+        return game;
+    }
 }
